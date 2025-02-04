@@ -1,3 +1,10 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+// Import Turbo (Hotwire)
+import { Turbo } from "turbo-rails";
+
+// Import Rails UJS for handling CSRF tokens, form submissions, etc.
+import Rails from '@rails/ujs';
+Rails.start();
+
+// Import any other JavaScript you might need (controllers, etc.)
+import "controllers";
+

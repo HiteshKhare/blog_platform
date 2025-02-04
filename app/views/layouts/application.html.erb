@@ -13,11 +13,28 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <!-- Use importmap for JS -->
     <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
   <body>
     <%= yield %>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+    <% if user_signed_in? %>
+      <%= form_for :logout, url: destroy_user_session_path, method: :delete do |f| %>
+        <%= f.submit 'Logout', class: 'btn btn-danger' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Login', new_user_session_path %>
+      <%= link_to 'Sign up', new_user_registration_path %>
+    <% end %>
+
+
+
   </body>
 </html>

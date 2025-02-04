@@ -1,0 +1,20 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<p>Posted by: <%= @post.user.email %></p>
+
+<h3>Tags:</h3>
+<ul>
+  <% @post.tags.each do |tag| %>
+    <li><%= tag.name %></li>
+  <% end %>
+</ul>
+
+<ul>
+  <p>Views: <%= @post.views_count %></p>
+  <p>Estimated Reading Time: <%= @post.reading_time %> minute(s)</p>
+</ul>
+
+<%= link_to 'Back to Posts', posts_path %> | 
+<%= link_to 'Edit', edit_post_path(@post) %> | 
+<%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+
