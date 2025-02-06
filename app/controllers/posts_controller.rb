@@ -22,6 +22,7 @@ class PostsController < ApplicationController
     @post.increment_views!  # Track the view count each time the post is viewed
     @comment = Comment.new # Initialize a new comment for the form
     @comments = @post.comments # Load the comments for the post
+    AnalyticsJob.perform_later(@post.id) # Trigger background job
   end
 
   def new
@@ -55,7 +56,9 @@ class PostsController < ApplicationController
 
   def analytics
     @users = User.all
-    @most_viewed_posts = Post.order(views_count: :desc).limit(5)
+    @most_viewed_posts = Rails.cache.fetch("most_viewed_posts", expires_in: 1.hour) do
+      Post.order(views_count: :desc).limit(5)
+    end
     @average_reading_time = Post.average(:total_reading_time)
     @popular_tags = Tag.joins(:posts).group('tags.id').order('count(posts.id) desc').limit(5)
   end

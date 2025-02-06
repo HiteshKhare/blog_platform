@@ -1,13 +1,15 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
-<p>Posted by: <%= @post.user.email %></p>
+<% cache @post do %>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+  <p>Posted by: <%= @post.user.email %></p>
 
-<h3>Tags:</h3>
-<ul>
-  <% @post.tags.each do |tag| %>
-    <li><%= tag.name %></li>
-  <% end %>
-</ul>
+  <h3>Tags:</h3>
+  <ul>
+    <% @post.tags.each do |tag| %>
+      <li><%= tag.name %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <ul>
   <p>Views: <%= @post.views_count %></p>
