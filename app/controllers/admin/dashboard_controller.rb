@@ -4,8 +4,8 @@ module Admin
     before_action :check_admin
 
     def index
-      @posts = Post.all
-      @tags = Tag.all
+      # Fetch all users and their posts
+      @users = User.includes(:posts).all
     end
 
     private

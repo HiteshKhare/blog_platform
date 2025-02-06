@@ -54,6 +54,7 @@ class PostsController < ApplicationController
   end
 
   def analytics
+    @users = User.all
     @most_viewed_posts = Post.order(views_count: :desc).limit(5)
     @average_reading_time = Post.average(:total_reading_time)
     @popular_tags = Tag.joins(:posts).group('tags.id').order('count(posts.id) desc').limit(5)

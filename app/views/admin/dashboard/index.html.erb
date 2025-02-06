@@ -1,18 +1,32 @@
 <h1>Admin Dashboard</h1>
 
-<h2>Posts</h2>
-<ul>
-  <% @posts.each do |post| %>
-    <li><%= link_to post.title, post_path(post) %> - <%= post.user.email %> | 
-        <%= link_to 'Edit', edit_post_path(post) %> | 
-        <%= link_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
-
-<h2>Tags</h2>
-<ul>
-  <% @tags.each do |tag| %>
-    <li><%= tag.name %></li>
-  <% end %>
-</ul>
+<h2>Welcome, <%= current_user.email %>!</h2>
+<!-- Link to Analytics Page -->
+<p><%= link_to 'View Post Analytics', analytics_posts_path %></p>
+<!-- Display Users and Their Posts -->
+<h3>Users and Their Posts</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th>User Email</th>
+      <th>Post Title</th>
+      <th>Post Created At</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <% user.posts.each_with_index do |post, index| %>
+        <tr>
+          <!-- Display the user's email only once for the first post -->
+          <% if index == 0 %>
+            <td rowspan="<%= user.posts.count %>"><%= user.email %></td>
+          <% end %>
+          <td><%= post.title %></td>
+          <td><%= post.created_at.strftime("%B %d, %Y") %></td>
+          <td><%= link_to 'View Details', post_path(post) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

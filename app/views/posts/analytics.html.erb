@@ -7,7 +7,7 @@
 </ul>
 
 <h2>Average Reading Time</h2>
-<p><%= @average_reading_time %> minutes</p>
+<p><%= @average_reading_time %> minute(s)</p>
 
 <h2>Top Performing Tags</h2>
 <ul>
@@ -16,4 +16,16 @@
   <% end %>
 </ul>
 
-<%= link_to 'Back', posts_path %>
+<h2>Manage Users</h2>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.email %>
+      <%= link_to 'Edit', edit_admin_user_path(user) %> |
+      <%= link_to 'Delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %> |
+      <%= user.admin? ? 'Admin' : 'User' %> <!-- Indicate user role -->
+    </li>
+  <% end %>
+</ul>
+<%= link_to 'Back to Dashboard', admin_dashboard_path %>
+<%= link_to 'Back to Posts', posts_path %>

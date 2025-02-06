@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
+    get 'dashboard', to: 'dashboard#index', as: :dashboard
+    resources :users  # Ensure this is here for user management
   end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
