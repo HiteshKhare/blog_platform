@@ -26,3 +26,4 @@ Things you may want to cover:
 
 * ...
 >>>>>>> 2fa0624 (Initial commit: Setup Rails app)
+# blog_platform
