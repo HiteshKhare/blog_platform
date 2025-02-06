@@ -20,6 +20,8 @@ class PostsController < ApplicationController
 
   def show
     @post.increment_views!  # Track the view count each time the post is viewed
+    @comment = Comment.new # Initialize a new comment for the form
+    @comments = @post.comments # Load the comments for the post
   end
 
   def new

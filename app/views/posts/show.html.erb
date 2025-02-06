@@ -11,10 +11,36 @@
 
 <ul>
   <p>Views: <%= @post.views_count %></p>
-  <p>Estimated Reading Time: <%= @post.reading_time %> minute(s)</p>
+  <p>Estimated Reading Time: <%= @post.total_reading_time %> minute(s)</p>
 </ul>
+
+<!-- Display the comments -->
+<h3>Comments:</h3>
+<% if @comments.any? %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <strong><%= comment.user.email %>:</strong>
+        <%= comment.content %>
+        <small><%= time_ago_in_words(comment.created_at) %> ago</small>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No comments yet.</p>
+<% end %>
+<!-- New Comment Form -->
+<h4>Add a comment:</h4>
+<%= form_with model: [@post, @comment], local: true do |form| %>
+  <div>
+    <%= form.text_area :content, placeholder: "Write your comment here...", rows: 4, cols: 50 %>
+  </div>
+  <div>
+    <%= form.submit "Post Comment" %>
+  </div>
+<% end %>
 
 <%= link_to 'Back to Posts', posts_path %> | 
 <%= link_to 'Edit', edit_post_path(@post) %> | 
-<%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Delete', posts_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 
