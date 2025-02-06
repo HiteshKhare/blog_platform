@@ -3,6 +3,6 @@ class AnalyticsJob < ApplicationJob
 
   def perform(post_id)
     post = Post.find(post_id)
-    post.increment!(:view_count)
+    post.increment!(:views_count)
   end
 end
