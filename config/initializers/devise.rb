@@ -254,6 +254,17 @@ Devise.setup do |config|
   # only the current scope. By default, Devise signs out all scopes.
   # config.sign_out_all_scopes = true
 
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.secret_key_base
+    jwt.dispatch_requests = [
+      ['POST', %r{^/api/v1/sign_in$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/api/v1/sign_out$}]
+    ]
+    jwt.expiration_time = 1.day.to_i
+  end
+
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
   # :html should redirect to the sign in page when the user does not have
@@ -263,7 +274,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html, :turbo_stream]
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete

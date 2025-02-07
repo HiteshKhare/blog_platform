@@ -25,5 +25,22 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :posts do
+        resources :comments, only: [:create, :index]
+        collection do
+          get :analytics
+        end
+      end
+
+      devise_scope :user do
+        post 'sign_in', to: 'sessions#create'
+        delete 'sign_out', to: 'sessions#destroy'
+      end
+    end
+  end
+
+
 
 end

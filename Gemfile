@@ -36,6 +36,8 @@ gem "bootsnap", require: false
 
 gem 'devise'
 
+gem 'devise-jwt'
+
 gem 'hotwire-rails'
 
 gem 'sprockets-rails'
