@@ -12,7 +12,7 @@
 <% end %>
 
 <ul>
-  <p>Views: <%= @post.views_count %></p>
+  <p>Views: <%= @post.post_views.count %></p>
   <p>Estimated Reading Time: <%= @post.total_reading_time %> minute(s)</p>
 </ul>
 

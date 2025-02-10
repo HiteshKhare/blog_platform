@@ -45,6 +45,7 @@ gem 'sprockets-rails'
 gem 'kaminari'
 gem 'sidekiq'
 
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -54,6 +55,12 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
+  gem 'guard-rspec', require: false
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing', '~> 1.0.5'
+  gem 'faker'
 end
 
 group :development do
@@ -65,4 +72,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'shoulda-matchers', '~> 5.0'
 end

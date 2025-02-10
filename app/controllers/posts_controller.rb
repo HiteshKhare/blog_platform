@@ -19,10 +19,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post.increment_views!(current_user)  # Increment view count only if the user hasn't viewed the post yet
     @comment = Comment.new  # Initialize a new comment for the form
     @comments = @post.comments  # Load the comments for the post
-    AnalyticsJob.perform_later(@post.id) # Trigger background job
+    AnalyticsJob.perform_later(@post, current_user) # Trigger background job
   end
 
   def new

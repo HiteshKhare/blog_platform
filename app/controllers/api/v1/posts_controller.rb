@@ -14,8 +14,8 @@ module Api
 
       # GET /api/v1/posts/:id
       def show
-        @post.increment_views!(current_user)
         render json: @post.as_json(include: { tags: { only: :name }, comments: { include: :user } }), status: :ok
+        AnalyticsJob.perform_later(@post, current_user) # Trigger background job
       end
 
       # POST /api/v1/posts
@@ -61,7 +61,7 @@ module Api
 
       # GET /api/v1/posts/analytics
       def analytics
-        most_viewed_posts = Post.order(views_count: :desc).limit(5)
+        most_viewed_posts = Post.post_views.order(count: :desc).limit(5)
         average_reading_time = Post.average(:total_reading_time)
         popular_tags = Tag.joins(:posts).group('tags.id').order('count(posts.id) desc').limit(5)
 

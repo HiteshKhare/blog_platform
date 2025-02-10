@@ -2,7 +2,7 @@
 <h3>Most Viewed Posts:</h3>
 <ul>
   <% @most_viewed_posts.each do |post| %>
-    <li><%= link_to post.title, post_path(post) %> - <%= post.views_count %> views</li>
+    <li><%= link_to post.title, post_path(post) %> - <%= post.post_views.count %> views</li>
   <% end %>
 </ul>
 
